@@ -1,0 +1,7 @@
+c:\Anaconda3\Scripts\activate
+python-v
+ctrl+d
+cd "C:\Users\Cham&Lu\Desktop\UN3\Labo IV\Proyecto Final\Web"
+python -m http.server
+
+después en el navegador poner: http://localhost:8000/
