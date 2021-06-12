@@ -10,7 +10,7 @@
 <body>
 	<main class="grid" x-data="grilla" x-init="$nextTick(() => leer_csv())" >
 			<template x-for="(tt,index) in trending_topics" :key="tt.id">
-				<button class="boton" :class="{ loading: tt.loading }" :style="{ backgroundColor: colores[tt.suceso], animationDelay: (Math.random()*1000)+'ms' }" :title="tt.tendencia" type="button">
+				<button class="boton" :class="{ loading: tt.loading }" :style="{ backgroundColor: colores[tt.suceso], animationDelay: (Math.random()*1000)+'ms' }" @click="seleccionada=tt" :title="tt.tendencia" type="button">
 					<img class="imagen" @load="trending_topics[index].loading=false" :src="tt.media" loading="lazy"/>
 				</button>
 			</template>
