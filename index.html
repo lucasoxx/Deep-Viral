@@ -2,7 +2,10 @@
 <html>
 
 <head>
-	<title>titulo</title>
+	<title>Deep Viral</title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<!-- Librería de carga de imagenes de Vue -->
 	<script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
@@ -15,11 +18,11 @@
 
 <body>
 	<main id="app">
-		<nav>
+		<nav class="">
 			<input v-model="filtro" type="radio" name="filtro" id="tiempo" value="tiempo">
-			<label for="tiempo">Tiempo</label>
+			<label for="tiempo" class="radio">Tiempo</label>
 			<input v-model="filtro" type="radio" name="filtro" id="suceso" value="suceso">
-			<label for="suceso">Suceso</label>
+			<label for="suceso" class="radio">Suceso</label>
 		</nav>
 		<transition name="fade">
 			<div v-if="seleccionado.tendencia" class="modal-overlay">
@@ -159,18 +162,19 @@
 						console.error(error)
 					}
 				}
+				
 			},
 			computed: {
 				colores() {
 					return {
-						deportivo: "#5fad56",
-						covid: "#235789",
-						aislado: "#72405c",
-						artístico: "#fb4d3d",
-						conmemorativo: "#8ddbe0",
-						trágico: "#d97e18",
-						político: "#f1d302",
-						mediático: "#c0180c",
+						deportivo: "#5fad56", //
+						covid: "#235789", //
+						aislado: "#72405c", //
+						"artístico": "#fb4d3d", //
+						conmemorativo: "#8ddbe0", //
+						"trágico": "#d97e18", //
+						"político": "#f1d302", //
+						"mediático": "#c0180c", //
 					}
 				},
 				sucesos() {
@@ -178,11 +182,11 @@
 						deportivo: [],
 						covid: [],
 						aislado: [],
-						artístico: [],
+						"artístico": [],
 						conmemorativo: [],
-						trágico: [],
-						político: [],
-						mediático: [],
+						"trágico": [],
+						"político": [],
+						"mediático": [],
 					};
 					this.trending_topics.forEach(tt => listaDeSucesos[tt.suceso].unshift(tt));
 					return listaDeSucesos;
