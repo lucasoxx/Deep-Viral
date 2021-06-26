@@ -10,6 +10,7 @@
 * {
 	padding: 0;
 	margin: 0;
+	font-family: 'Fjalla One', serif;
 }
 
 :root {
@@ -32,6 +33,10 @@
 	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;	
 }
 
+.radio {
+	font-size:1.5rem;
+}
+
 .boton {
 	-webkit-appearance: none;
 	-moz-appearance: none; 
@@ -45,8 +50,6 @@
 .transicion-move {
 	transition: transform 10s;
 }
-
-
 
 .modal-overlay {
 	background-color: rgba(0, 0, 0, 0.25);
