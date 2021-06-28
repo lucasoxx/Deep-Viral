@@ -1,52 +1,103 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Deep Viral</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alike+Angular&family=Andada&family=Belgrano&family=Crimson+Text&family=Domine&family=Fjalla+One&family=IM+Fell+English&family=Karma:wght@300&family=Podkova&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- Librería de carga de imagenes de Vue -->
+    <script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
 
-<head>
-	<title>Deep Viral</title>
-	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-	<meta content="utf-8" http-equiv="encoding">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Alike+Angular&family=Andada&family=Belgrano&family=Crimson+Text&family=Domine&family=Fjalla+One&family=IM+Fell+English&family=Karma:wght@300&family=Podkova&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="style.css" />
-	<!-- Librería de carga de imagenes de Vue -->
-	<script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- LO DE ABAJO ES VUE VERSION DE DESARROLLO, PARA LA VERSION FINAL USAR ESTO:  -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+  </head>
 
-	<!-- Vue -->
-	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-	<!-- LO DE ABAJO ES VUE VERSION DE DESARROLLO, PARA LA VERSION FINAL USAR ESTO:  -->
-	<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
-</head>
+  <body>
+    <main id="app">
+      <nav class="">
+        <input
+          v-model="filtro"
+          type="radio"
+          name="filtro"
+          id="tiempo"
+          value="tiempo"
+        />
+        <label for="tiempo" class="radio">Tiempo</label>
+        <input
+          v-model="filtro"
+          type="radio"
+          name="filtro"
+          id="suceso"
+          value="suceso"
+        />
+        <label for="suceso" class="radio">Suceso</label>
+      </nav>
 
-<body>
-	<main id="app">
-		<nav class="">
-			<input v-model="filtro" type="radio" name="filtro" id="tiempo" value="tiempo">
-			<label for="tiempo" class="radio">Tiempo</label>
-			<input v-model="filtro" type="radio" name="filtro" id="suceso" value="suceso">
-			<label for="suceso" class="radio">Suceso</label>
-		</nav>
-		<transition name="fade">
-			<div v-if="seleccionado.tendencia" class="modal-overlay">
-				<div class="modal-body">
-					<div>
-						<h1>{{ seleccionado.tendencia }}</h1>
-						<p>{{ seleccionado.explicacion }}</p>
-						<p>{{ seleccionado.time }}</p>
-						<button @click="seleccionado={}">Volver</button>
-					</div>
-				</div>
-			</div>
-		</transition>
-		<transition-group class="grid" name="transicion">
-			<button v-lazy-container="{ selector: 'img' }" v-for="(tt,index) in ordenados" :key="tt.id" class="boton" @click="seleccionado=tt"
-				:title="tt.tendencia" type="button">
-				<img class="imagen" :data-src="tt.media"
-					:style="{ backgroundColor: colores[tt.suceso], animationDelay: (Math.random()*1000)+'ms' }" />
-			</button>
-		</transition-group>
-	</main>
-	<script type="text/javascript" src="script.js"></script>
-</body>
+      <transition name="fade">
+        <div v-if="seleccionado.tendencia" class="modal-overlay" @click="seleccionado={}" @keydown.capture.esc="seleccionado={}">
+          <div class="modal-body" @click.stop>
+            <div>
+              <h1>{{ seleccionado.tendencia }}</h1>
+              <p>{{ seleccionado.explicacion }}</p>
+              <p>{{ seleccionado.time }}</p>
+              <div v-if="tweetsSeleccionados" @keydown.capture.left="anterior" @keydown.capture.right="proximo">
+                <div>
+                  <h1>Ranking de palabras:</h1>
+                  <p>
+                    <span v-for="palabra in tweetsSeleccionados.ordenadasPorRanking" :style="{fontSize: `${Math.ceil(tweetsSeleccionados.palabrasRankeadas[palabra] / 100)}rem`}"  :key="palabra" :title="tweetsSeleccionados.palabrasRankeadas[palabra]">
+                      {{ palabra }}
+                    </span>
+                  </p>
+                </div>
+                <transition appear name="fade" mode="out-in">
+                  <div :key="tweetsSeleccionados.tweets[indice].id">
+                    <button type="button" @click="anterior">
+                      &lt;
+                    </button>
+                    <button type="button" @click="proximo">
+                      &gt;
+                    </button>
+                    <div>
+                      <h1>{{ tweetsSeleccionados.tweets[indice].username }}</h1>
+                      <p>{{ tweetsSeleccionados.tweets[indice].tweet }}</p>
+                      <img v-if="tweetsSeleccionados.tweets[indice].media" :src="tweetsSeleccionados.tweets[indice].media" :alt="tweetsSeleccionados.tweets[indice].media">
+                    </div>
+                  </div>
+                </transition>
+              </div>
+              <button @click="seleccionado={}">Volver</button>
+            </div>
+          </div>
+        </div>
+      </transition>
+
+      <transition-group class="grid" name="transicion">
+        <button
+          v-lazy-container="{ selector: 'img' }"
+          v-for="(tt, index) in ordenados"
+          :key="tt.id"
+          class="boton"
+          :title="tt.tendencia"
+          type="button"
+          @click="seleccionar(tt)"
+        >
+          <img
+            class="imagen"
+            :data-src="tt.media"
+            :style="{ backgroundColor: colores[tt.suceso], animationDelay: (Math.random()*1000)+'ms' }"
+          />
+        </button>
+      </transition-group>
+    </main>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
 </html>
