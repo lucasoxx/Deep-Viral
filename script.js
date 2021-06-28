@@ -191,7 +191,7 @@ new Vue({
 		async cargarTrendingTopics() {
 			try {
 				const arrayTrendingTopics = await this.leer_csv(
-					"300_tendencias_by_porquetendencia"
+					"tendencias_de_junio"
 				);
 				this.trending_topics = arrayTrendingTopics.map(
 					([id, tendencia, explicacion, url, media, time, suceso]) => ({
