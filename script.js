@@ -25,6 +25,15 @@ const PALABRAS_FILTRADAS = [
 	":",
 	"|",
 	"y",
+	"si",
+	"se",
+	"lo",
+	"un",
+	"una",
+	"unos",
+	"unas",
+	"me",
+
 ];
 
 // Agregamos el "plugin" de VueLazyLoad a Vue para cargar imagenes de manera asincrona sin romper nada y no sobrecargar la memoria :D
