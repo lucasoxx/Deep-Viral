@@ -58,16 +58,18 @@
                     </span>
                   </p>
                 </div>
+                <div>
+                  <button type="button" @click="anterior">
+                    &lt;
+                  </button>
+                  <button type="button" @click="proximo">
+                    &gt;
+                  </button>
+                </div>
                 <transition appear name="fade" mode="out-in">
                   <div :key="tweetsSeleccionados.tweets[indice].id">
-                    <button type="button" @click="anterior">
-                      &lt;
-                    </button>
-                    <button type="button" @click="proximo">
-                      &gt;
-                    </button>
                     <div>
-                      <h1>{{ tweetsSeleccionados.tweets[indice].username }}</h1>
+                      <h1>@{{ tweetsSeleccionados.tweets[indice].username }}</h1>
                       <p>{{ tweetsSeleccionados.tweets[indice].tweet }}</p>
                       <img v-if="tweetsSeleccionados.tweets[indice].media" :src="tweetsSeleccionados.tweets[indice].media" :alt="tweetsSeleccionados.tweets[indice].media">
                     </div>
