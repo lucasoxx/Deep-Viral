@@ -23,7 +23,8 @@
 
   <body>
     <main id="app">
-      <nav class="">
+      <nav class="barra">
+        <span>Ordenar por:  </span>
         <input
           v-model="filtro"
           type="radio"
@@ -39,20 +40,23 @@
           id="suceso"
           value="suceso"
         />
-        <label for="suceso" class="radio">Suceso</label>
+        <label for="suceso" class="radio">Tipo de suceso</label>
       </nav>
 
       <transition name="fade">
         <div v-if="seleccionado.tendencia" class="modal-overlay" @click="seleccionado={}" @keydown.capture.esc="seleccionado={}">
-          <div class="modal-body" @click.stop>
+          <div class="modal-body" :style="{ backgroundColor: colores[seleccionado.suceso] }" @click.stop>
             <div>
-              <h1>{{ seleccionado.tendencia }}</h1>
+          	  <p>Suceso {{ seleccionado.suceso }}</p>
+              <div class= "leyendaTendencia">  
+                <h1>#{{ seleccionado.tendencia }}</h1>
+                <span>{{ seleccionado.time }}</span>
+              </div>  
               <p>{{ seleccionado.explicacion }}</p>
-              <p>{{ seleccionado.time }}</p>
               <div v-if="tweetsSeleccionados" @keydown.capture.left="anterior" @keydown.capture.right="proximo">
                 <div>
-                  <h1>Ranking de palabras:</h1>
-                  <p>
+                  <h2>Ranking de palabras:</h2>
+                  <p class="nubePalabras">
                     <span v-for="palabra in tweetsSeleccionados.ordenadasPorRanking" :style="{fontSize: `${Math.ceil(tweetsSeleccionados.palabrasRankeadas[palabra] / 100)}rem`}"  :key="palabra" :title="tweetsSeleccionados.palabrasRankeadas[palabra]">
                       {{ palabra }}
                     </span>
@@ -67,12 +71,13 @@
                   </button>
                 </div>
                 <transition appear name="fade" mode="out-in">
-                  <div :key="tweetsSeleccionados.tweets[indice].id">
+                  <div class= "tweets-container" :key="tweetsSeleccionados.tweets[indice].id">
                     <div>
                       <h1>@{{ tweetsSeleccionados.tweets[indice].username }}</h1>
+                      <span>{{ tweetsSeleccionados.tweets[indice].time }}</span>
                       <p>{{ tweetsSeleccionados.tweets[indice].tweet }}</p>
-                      <img v-if="tweetsSeleccionados.tweets[indice].media" :src="tweetsSeleccionados.tweets[indice].media" :alt="tweetsSeleccionados.tweets[indice].media">
-                    </div>
+				  </div>
+                   <img class= "imagen-tweet" v-if="tweetsSeleccionados.tweets[indice].media" :src="tweetsSeleccionados.tweets[indice].media" :alt="tweetsSeleccionados.tweets[indice].media">
                   </div>
                 </transition>
               </div>

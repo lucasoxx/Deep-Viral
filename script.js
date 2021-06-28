@@ -24,6 +24,7 @@ const PALABRAS_FILTRADAS = [
 	"versus",
 	":",
 	"|",
+	"y",
 ];
 
 // Agregamos el "plugin" de VueLazyLoad a Vue para cargar imagenes de manera asincrona sin romper nada y no sobrecargar la memoria :D
@@ -183,10 +184,12 @@ new Vue({
 			return arrData;
 		},
 		anterior() {
-			this.indice--;
+			if (this.seleccionado?.tendencia && this.coleccion_de_tweets[this.seleccionado.tendencia]){
+			this.indice--; }
 		},
 		proximo() {
-			this.indice++;
+			if (this.seleccionado?.tendencia && this.coleccion_de_tweets[this.seleccionado.tendencia]) {
+			this.indice++; }
 		},
 		async cargarTrendingTopics() {
 			try {
