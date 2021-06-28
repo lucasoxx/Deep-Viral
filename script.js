@@ -184,12 +184,16 @@ new Vue({
 			return arrData;
 		},
 		anterior() {
-			if (this.seleccionado?.tendencia && this.coleccion_de_tweets[this.seleccionado.tendencia]){
-			this.indice--; }
+			if (this.indice)
+				this.indice--;
+			else
+				this.indice = this.coleccion_de_tweets[this.seleccionado.tendencia].length - 1;
 		},
 		proximo() {
-			if (this.seleccionado?.tendencia && this.coleccion_de_tweets[this.seleccionado.tendencia]) {
-			this.indice++; }
+			if  (this.indice === this.coleccion_de_tweets[this.seleccionado.tendencia].length - 1)
+				this.indice = 0; 
+			else
+				this.indice++;
 		},
 		async cargarTrendingTopics() {
 			try {
