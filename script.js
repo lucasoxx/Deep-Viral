@@ -33,6 +33,21 @@ const PALABRAS_FILTRADAS = [
 	"unos",
 	"unas",
 	"me",
+	"o",
+	"la",
+	"el",
+	"del",
+	"q",
+	"al",
+	"o",
+	"los",
+	"las",
+	"como",
+	"son",
+	"es",
+	"su",
+	"te",
+	"que",
 
 ];
 

@@ -47,15 +47,15 @@
         <div v-if="seleccionado.tendencia" class="modal-overlay" @click="seleccionado={}" @keydown.capture.esc="seleccionado={}">
           <div class="modal-body" :style="{ backgroundColor: colores[seleccionado.suceso] }" @click.stop>
             <div>
-          	  <p>Suceso {{ seleccionado.suceso }}</p>
+          	  <h3>Suceso {{ seleccionado.suceso }}</h3>
               <div class= "leyendaTendencia">  
+              	<span>{{ seleccionado.time }}</span>
                 <h1>#{{ seleccionado.tendencia }}</h1>
-                <span>{{ seleccionado.time }}</span>
               </div>  
-              <p>{{ seleccionado.explicacion }}</p>
+              <h3>{{ seleccionado.explicacion }}</h3>
               <div v-if="tweetsSeleccionados" @keydown.capture.left="anterior" @keydown.capture.right="proximo">
                 <div>
-                  <h2>Ranking de palabras:</h2>
+                  <h4>Ranking de palabras:</h4>
                   <p class="nubePalabras">
                     <span v-for="palabra in tweetsSeleccionados.ordenadasPorRanking" :style="{fontSize: `${Math.ceil(tweetsSeleccionados.palabrasRankeadas[palabra] / 100)}rem`}"  :key="palabra" :title="tweetsSeleccionados.palabrasRankeadas[palabra]">
                       {{ palabra }}
